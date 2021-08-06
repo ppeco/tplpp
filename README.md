@@ -10,7 +10,7 @@ Library for templates
 use ppeco\tplpp\Template;
 
 // From string
-$template = new Template("Hello, {\$variable.'!'}");
+$template = new Template("Hello, {{\$variable.'!'}}");
 
 //..or from file
 $template = Template::fromFile("./example.tpl");
