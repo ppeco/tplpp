@@ -1,0 +1,12 @@
+{
+    "name": "ppeco/tplpp",
+    "description": "Template library for php",
+    "type": "library",
+    "license": "MIT",
+    "require": {},
+    "autoload": {
+        "psr-0": {
+            "ppeco\\tplpp\\": "src"
+        }
+    }
+}
