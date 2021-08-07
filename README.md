@@ -6,7 +6,7 @@ composer require ppeco/tplpp
 Library for templates
 
 ## Example
-```injectablephp
+```php
 use ppeco\tplpp\Template;
 
 // From string
