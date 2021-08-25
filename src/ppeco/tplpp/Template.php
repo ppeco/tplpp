@@ -28,9 +28,9 @@ class Template implements Stringable {
         if(preg_match_all('/{{([^.]+?)}}/', $this->input, $output,
             PREG_OFFSET_CAPTURE)){
             for($i = 0, $count = count($output[0]); $i < $count; $i++){
-                $this->input = substr(0, $output[0][$i][1])
+                $this->input = substr($this->input, 0, $output[0][$i][1])
                     .exec($this, $output[1][$i][0])
-                    .substr(strlen($output[0][$i][0]), strlen($this->input));
+                    .substr($this->input, $output[0][$i][1]+$output[1][$i][1], strlen($this->input));
             }
         }
 
@@ -51,12 +51,12 @@ function exec(Template $template, string $code): mixed {
         $org_code = $code;
         $code = "\$code = function(): mixed {";
         foreach($template->values as $name => $value)
-            $code .= "\$$name = '$value';";
+            $code .= "\$$name = '".str_replace("'", "\\'", $value)."';";
 
         $code .= "$org_code}; return \$code();";
     }else {
         foreach($template->values as $name => $value)
-            eval("\$$name = '$value';");
+            eval("\$$name = '".str_replace("'", "\\'", $value)."';");
 
         $code = "return $code;";
     }
