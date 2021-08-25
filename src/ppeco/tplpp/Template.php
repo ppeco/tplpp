@@ -51,12 +51,12 @@ function exec(Template $template, string $code): mixed {
         $org_code = $code;
         $code = "\$code = function(): mixed {";
         foreach($template->values as $name => $value)
-            $code .= "${$name} = '$value';";
+            $code .= "\$$name = '$value';";
 
         $code .= "$org_code}; return \$code();";
     }else {
         foreach($template->values as $name => $value)
-            eval("${$name} = '$value';");
+            eval("\$$name = '$value';");
 
         $code = "return $code;";
     }
