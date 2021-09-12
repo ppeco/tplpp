@@ -25,13 +25,11 @@ class Template implements Stringable {
     }
 
     public function compile(): string{
-        if(preg_match_all('/{{([^.]+?)}}/', $this->input, $output,
+        while(preg_match('/{{([^.]+?)}}/', $this->input, $output,
             PREG_OFFSET_CAPTURE)){
-            for($i = 0, $count = count($output[0]); $i < $count; $i++){
-                $this->input = substr($this->input, 0, $output[0][$i][1])
-                    .exec($this, $output[1][$i][0])
-                    .substr($this->input, $output[0][$i][1]+$output[1][$i][1], strlen($this->input));
-            }
+            $this->input = substr($this->input, 0, $output[0][1])
+                .exec($this, $output[1][0])
+                .substr($this->input, $output[0][1]+strlen($output[0][0]), strlen($this->input));
         }
 
         return $this->input;
