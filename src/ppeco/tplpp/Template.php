@@ -28,7 +28,7 @@ class Template implements Stringable {
         while(preg_match('/{{([^.]+?)}}/', $this->input, $output,
             PREG_OFFSET_CAPTURE)){
             $this->input = substr($this->input, 0, $output[0][1])
-                .exec($this, $output[1][0])
+                .exec($this, html_entity_decode($output[1][0]))
                 .substr($this->input, $output[0][1]+strlen($output[0][0]), strlen($this->input));
         }
 
